@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Информация о системе</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Информация о системе</h1>
+        <div class="info-card">
+            <div class="info-item">
+                <h2>Имя хоста:</h2>
+                <p>{{.Hostname}}</p>
+            </div>
+            <div class="info-item">
+                <h2>IP адрес:</h2>
+                <p>{{.IP}}</p>
+            </div>
+            <div class="info-item">
+                <h2>Автор:</h2>
+                <p>{{.Author}}</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
