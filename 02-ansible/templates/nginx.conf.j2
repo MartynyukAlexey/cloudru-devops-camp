@@ -1,5 +1,4 @@
 upstream app_servers {
-    least_conn;
     {% for i in range(1, instance_count + 1) %}
     server {{ container_name_prefix }}-{{ i }}:{{ container_port }};
     {% endfor %}
