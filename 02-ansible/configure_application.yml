@@ -1,0 +1,44 @@
+---
+- name: Deploy app instances and set up networking
+  hosts: all
+  become: yes
+  vars_files:
+    - group_vars/all/vars.yml
+    - group_vars/all/vault.yml
+
+  tasks:
+    - name: Log in to registry
+      docker_login:
+        registry_url: "{{ docker_registry_url }}"
+        username: "{{ docker_registry_username }}"
+        password: "{{ docker_registry_password }}"
+      no_log: true
+
+    - name: Pull latest application image
+      docker_image:
+        name: "{{ docker_image }}"
+        source: pull
+        tag: latest
+
+    - name: Create Docker network for app instances
+      docker_network:
+        name: proxy-net
+        state: present
+
+    - name: Deploy application containers
+      docker_container:
+        name: "{{ container_name_prefix }}-{{ item }}"
+        image: "{{ docker_image }}:latest"
+        state: started
+        restart_policy: unless-stopped
+        networks:
+          - name: proxy-net
+        expose:
+          - "{{ container_port }}"
+        env:
+          AUTHOR: "{{ author }}"
+          PORT: "{{ container_port }}"
+      loop: "{{ range(1, instance_count + 1) | list }}"
+      loop_control:
+        label: "container {{ item }}"
+      register: container_status

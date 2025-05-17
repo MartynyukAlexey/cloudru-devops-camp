@@ -1,0 +1,7 @@
+docker_registry_url: "https://index.docker.io/v1/"
+docker_image: "martynyukalexey/01-application"
+
+container_name_prefix: "01-application"
+container_port: "8000"
+instance_count: 3
+author: "MartynyukAlexey"
