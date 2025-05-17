@@ -1,0 +1,9 @@
+apiVersion: v2
+name: todo
+description: todo
+type: application
+version: 0.1.0
+
+maintainers:
+  - name: Alexey Martynyuk
+    email: MartynyukAlexey05@gmail.com
