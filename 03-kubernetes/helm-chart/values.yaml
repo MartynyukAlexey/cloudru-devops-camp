@@ -1,0 +1,54 @@
+namespace:
+  name: echo-server-ns
+
+replicaCount: 3
+
+service:
+  name: echo-server-service
+  type: ClusterIP
+  port: 8000
+
+image:
+  repository: docker.io/martynyukalexey/01-application
+  tag: latest
+  pullPolicy: IfNotPresent
+  pullSecrets:
+    enabled: true
+    name: dockerhub-secret
+  credentials:
+    registry: docker.io
+    username: ""
+    password: ""
+    email: ""
+
+ingress:
+  enabled: true
+  name: echo-server-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  hosts:
+    - host: echo-server.local
+      paths:
+        - path: /
+          pathType: Prefix
+
+env:
+  author: MartynyukAlexey
+
+resources:
+  requests:
+    memory: 128Mi
+    cpu: 250m
+  limits:
+    memory: 256Mi
+    cpu: 500m
+
+probes:
+  liveness:
+    path: /health/liveness
+    initialDelaySeconds: 10
+    periodSeconds: 5
+  readiness:
+    path: /health/readiness
+    initialDelaySeconds: 10
+    periodSeconds: 5

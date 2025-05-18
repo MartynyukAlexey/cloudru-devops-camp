@@ -1,9 +1,6 @@
 apiVersion: v2
-name: todo
-description: todo
+name: echo-server
+description: golang echo-server with ingress
 type: application
-version: 0.1.0
-
-maintainers:
-  - name: Alexey Martynyuk
-    email: MartynyukAlexey05@gmail.com
+version: 0.1.1
+appVersion: "1.0"
